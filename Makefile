@@ -1,4 +1,4 @@
-include .env
+-include .env
 
 install-dependencies:
 	python -m pip install --upgrade pip
