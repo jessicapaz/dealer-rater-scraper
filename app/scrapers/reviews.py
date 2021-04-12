@@ -20,9 +20,10 @@ class Reviews:
         return reviews
 
     async def _get_review_pages(self, page_range):
+        start, end = page_range
         return await asyncio.gather(
             *[HTMLScraper.request(f'{self._base_url}/page{i}')
-              for i in range(*page_range)]
+              for i in range(start, end+1)]
         )
 
     def _parse_reviews_page(self, page):

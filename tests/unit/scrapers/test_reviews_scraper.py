@@ -38,7 +38,7 @@ async def test_get_reviews_with_success(
                comment="The service department is second to none")
     ]
 
-    actual = await Reviews(dealer_name).get_by_pages(page_range=(1, 2))
+    actual = await Reviews(dealer_name).get_by_pages(page_range=(1, 1))
 
     assert actual == expected
 
@@ -61,6 +61,6 @@ async def test_get_top_reviews_with_success(
                comment="Really easy to deal with.")
     ]
 
-    actual = await Reviews(dealer_name).get_top_best_reviews((1, 2), 3)
+    actual = await Reviews(dealer_name).get_top_best_reviews((1, 1), 3)
 
     assert actual == expected

@@ -15,8 +15,10 @@ class ReviewsUI:
 
     @property
     async def top_reviews(self):
-        return await Reviews(self._args.dealer.strip()).get_top_best_reviews(
-            page_range=self._args.page_range, limit=self._args.limit)
+        reviews = Reviews(self._args.dealer)
+        page_range = (self._args.page_start, self._args.page_end)
+        limit = self._args.limit
+        return await reviews.get_top_best_reviews(page_range, limit)
 
     @property
     def _args(self):
@@ -24,6 +26,8 @@ class ReviewsUI:
         arg_parser.add_argument('--limit', type=int, required=True)
         arg_parser.add_argument('--dealer', type=str, required=True)
         arg_parser.add_argument(
-            '--page_range', nargs='+', type=int, required=True)
+            '--page_start', type=int, required=True)
+        arg_parser.add_argument(
+            '--page_end', type=int, required=True)
         args = arg_parser.parse_args()
         return args

@@ -15,7 +15,8 @@ async def test_get_top_reviews_with_success(
     mock_request.text.return_value = mock_review_page
     mock_args.return_value = argparse.Namespace(
         dealer='McKaig Chevrolet Buick A Dealer',
-        page_range=[1, 2],
+        page_start=1,
+        page_end=1,
         limit=2
     )
 
