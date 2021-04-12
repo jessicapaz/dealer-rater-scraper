@@ -10,7 +10,7 @@ from app.ui.reviews import ReviewsUI
 @patch('argparse.ArgumentParser.parse_args')
 async def test_get_top_reviews_with_success(
         mock_args, mock_request, mock_review_page, capfd
-    ):
+):
     mock_request = mock_request.return_value.__aenter__.return_value
     mock_request.text.return_value = mock_review_page
     mock_args.return_value = argparse.Namespace(
