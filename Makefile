@@ -9,6 +9,3 @@ lint:
 
 test:
 	pipenv run pytest tests
-
-run:
-	python -m app.main
