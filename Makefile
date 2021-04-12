@@ -1,12 +1,14 @@
 -include .env
 
 install-dependencies:
-	python -m pip install --upgrade pip
 	pip install pipenv
 	pipenv install
 
 lint:
-	flake8 .
+	pipenv run flake8
 
 test:
-	pytest tests
+	pipenv run pytest tests
+
+run:
+	python -m app.main
