@@ -9,7 +9,8 @@ from app.models.review import Review
 @pytest.mark.asyncio
 @patch('aiohttp.ClientSession.get')
 async def test_get_reviews_with_success(
-        mock_request, mock_review_page):
+        mock_request, mock_review_page
+    ):
     mock_request = mock_request.return_value.__aenter__.return_value
     mock_request.text.return_value = mock_review_page
     dealer_name = 'McKaig Chevrolet Buick A Dealer'
@@ -45,7 +46,8 @@ async def test_get_reviews_with_success(
 @pytest.mark.asyncio
 @patch('aiohttp.ClientSession.get')
 async def test_get_top_reviews_with_success(
-        mock_request, mock_review_page):
+        mock_request, mock_review_page
+    ):
     mock_request = mock_request.return_value.__aenter__.return_value
     mock_request.text.return_value = mock_review_page
     dealer_name = 'McKaig Chevrolet Buick A Dealer'
