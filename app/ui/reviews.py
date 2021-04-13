@@ -9,7 +9,10 @@ class ReviewsUI:
         try:
             reviews = await self.top_reviews
             formated_data = tabulate(
-                [[r.published_date, r.author, r.rating, r.comment] for r in reviews],
+                [
+                    [r.published_date, r.author, r.rating, r.comment]
+                    for r in reviews
+                ],
                 headers=['Published Date', 'Author', 'Rating', 'Comment']
             )
             print(formated_data)

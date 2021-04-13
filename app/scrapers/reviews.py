@@ -33,13 +33,19 @@ class Reviews:
 
         parsed_reviews = []
         for review in reviews:
-            published_date = self._get_published_date(review, ReviewQueryBuilder.get_published_date())
+            published_date = self._get_published_date(
+                review, ReviewQueryBuilder.get_published_date())
             rating = self._get_rating(review, ReviewQueryBuilder.get_rating())
             comment = HTMLScraper.get_first(
                 review, ReviewQueryBuilder.get_comment()).content
             author = self._get_author(review, ReviewQueryBuilder.get_author())
-            parsed_reviews.append(
-                Review(published_date=published_date, rating=rating, comment=comment, author=author))
+
+            review = Review(
+                published_date=published_date,
+                rating=rating, comment=comment,
+                author=author
+            )
+            parsed_reviews.append(review)
         return parsed_reviews
 
     def _get_published_date(self, review, published_date_query):
@@ -61,5 +67,8 @@ class Reviews:
     async def get_top_best_reviews(self, page_range, limit):
         all_reviews = await self.get_by_pages(page_range)
         sorted_reviews = sorted(
-            all_reviews, key=lambda r: (r.rating, r.published_date), reverse=True)
+            all_reviews,
+            key=lambda r: (r.rating, r.published_date),
+            reverse=True
+        )
         return sorted_reviews[:limit]

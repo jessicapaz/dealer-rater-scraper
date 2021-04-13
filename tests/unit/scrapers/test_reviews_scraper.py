@@ -19,7 +19,8 @@ async def test_get_reviews_with_success(
         Review(rating=4.8, published_date=datetime.date(2021, 1, 23),
                comment='Great customer service', author='Mechellegrahamtx'),
         Review(rating=5.0, published_date=datetime.date(2021, 1, 18),
-               comment='Great guy worked hard to get us pur deal.', author='Jnicholson4472'),
+               comment='Great guy worked hard to get us pur deal.',
+               author='Jnicholson4472'),
         Review(rating=5.0, published_date=datetime.date(2021, 1, 22),
                comment='Excellent service!', author='mattgrahamtx'),
         Review(rating=5.0, published_date=datetime.date(2021, 1, 22),
@@ -27,7 +28,8 @@ async def test_get_reviews_with_success(
         Review(rating=5.0, published_date=datetime.date(2021, 1, 20),
                comment='David is fantastic!', author='Jaimewinters2'),
         Review(rating=5.0, published_date=datetime.date(2021, 1, 20),
-               comment='I needed a larger vehicle for my family.', author='K Hatch'),
+               comment='I needed a larger vehicle for my family.',
+               author='K Hatch'),
         Review(rating=5.0, published_date=datetime.date(
             2021, 1, 19), comment='Good', author='dekota1'),
         Review(rating=5.0, published_date=datetime.date(2021, 1, 23),
@@ -35,7 +37,8 @@ async def test_get_reviews_with_success(
         Review(rating=5.0, published_date=datetime.date(2021, 1, 18),
                comment='I was very impressed', author='ckennard1'),
         Review(rating=5.0, published_date=datetime.date(2021, 1, 17),
-               comment='The service department is second to none', author='Bubba B'),
+               comment='The service department is second to none',
+               author='Bubba B'),
     ]
 
     actual = await Reviews(dealer_name).get_by_pages(page_range=(1, 1))
@@ -54,7 +57,8 @@ async def test_get_top_reviews_with_success(
 
     expected = [
         Review(rating=5, published_date=datetime.date(
-            2021, 1, 23), comment="Mckaig is the one", author='Mikaylaflournoy'),
+            2021, 1, 23), comment="Mckaig is the one",
+            author='Mikaylaflournoy'),
         Review(rating=5, published_date=datetime.date(2021, 1, 22),
                comment="Excellent service!", author='mattgrahamtx'),
         Review(rating=5, published_date=datetime.date(2021, 1, 22),
