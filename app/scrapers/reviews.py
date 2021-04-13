@@ -33,27 +33,28 @@ class Reviews:
 
         parsed_reviews = []
         for review in reviews:
-            date = self._get_date(review, ReviewQueryBuilder.get_date())
-            rate = self._get_rate(review, ReviewQueryBuilder.get_rate())
+            published_date = self._get_published_date(review, ReviewQueryBuilder.get_published_date())
+            rating = self._get_rating(review, ReviewQueryBuilder.get_rating())
             comment = HTMLScraper.get_first(
                 review, ReviewQueryBuilder.get_comment()).content
             parsed_reviews.append(
-                Review(date=date, rate=rate, comment=comment))
+                Review(published_date=published_date, rating=rating, comment=comment))
         return parsed_reviews
 
-    def _get_date(self, review, date_query):
-        date = HTMLScraper.get_first(
-            review, ReviewQueryBuilder.get_date()).content
-        return datetime.strptime(date, '%B %d, %Y')
+    def _get_published_date(self, review, published_date_query):
+        published_date = HTMLScraper.get_first(
+            review, published_date_query).content
+        return datetime.strptime(published_date, '%B %d, %Y')
 
-    def _get_rate(self, review, rate_query):
-        rate = HTMLScraper.get_first(review, rate_query)
+    def _get_rating(self, review, rating_query):
+        rating = HTMLScraper.get_first(review, rating_query)
         regex_pattern = '.*rating-([0-9]+)'
-        return int(re.search(regex_pattern, ' '.join(
-            rate.classes)).group(1))
+        rating_number = int(re.search(regex_pattern, ' '.join(
+            rating.classes)).group(1))
+        return round(rating_number / 10, 1)
 
     async def get_top_best_reviews(self, page_range, limit):
         all_reviews = await self.get_by_pages(page_range)
         sorted_reviews = sorted(
-            all_reviews, key=lambda r: (r.rate, r.date), reverse=True)
+            all_reviews, key=lambda r: (r.rating, r.published_date), reverse=True)
         return sorted_reviews[:limit]

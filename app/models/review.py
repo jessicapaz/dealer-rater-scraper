@@ -3,8 +3,8 @@ from pydantic import BaseModel, Field
 
 
 class Review(BaseModel):
-    rate: int = Field(int, ge=0, le=50)
-    date: date
+    rating: int = Field(int, ge=0, le=5)
+    published_date: date
     comment: str
 
 
@@ -14,11 +14,11 @@ class ReviewQueryBuilder:
         return '#reviews div.review-entry'
 
     @staticmethod
-    def get_date():
+    def get_published_date():
         return 'div.review-date > div'
 
     @staticmethod
-    def get_rate():
+    def get_rating():
         return 'div.dealership-rating > div'
 
     @staticmethod
