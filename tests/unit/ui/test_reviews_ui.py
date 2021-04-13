@@ -22,10 +22,10 @@ async def test_get_top_reviews_with_success(
     )
 
     expected = '''
-    Date          Rate  Comment
-    ----------  ------  ------------------
-    2021-01-23      50  Mckaig is the one
-    2021-01-22      50  Excellent service!
+    Published Date    Author             Rating  Comment
+    ----------------  ---------------  --------  ------------------
+    2021-01-23        Mikaylaflournoy        5  Mckaig is the one
+    2021-01-22        mattgrahamtx           5  Excellent service!
     '''
 
     await ReviewsUI().print_top_reviews()

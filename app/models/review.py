@@ -6,6 +6,7 @@ class Review(BaseModel):
     rating: int = Field(int, ge=0, le=5)
     published_date: date
     comment: str
+    author: str
 
 
 class ReviewQueryBuilder:
@@ -24,3 +25,7 @@ class ReviewQueryBuilder:
     @staticmethod
     def get_comment():
         return 'div.review-wrapper p.review-content'
+
+    @staticmethod
+    def get_author():
+        return 'div.review-wrapper span'

@@ -37,8 +37,9 @@ class Reviews:
             rating = self._get_rating(review, ReviewQueryBuilder.get_rating())
             comment = HTMLScraper.get_first(
                 review, ReviewQueryBuilder.get_comment()).content
+            author = self._get_author(review, ReviewQueryBuilder.get_author())
             parsed_reviews.append(
-                Review(published_date=published_date, rating=rating, comment=comment))
+                Review(published_date=published_date, rating=rating, comment=comment, author=author))
         return parsed_reviews
 
     def _get_published_date(self, review, published_date_query):
@@ -52,6 +53,10 @@ class Reviews:
         rating_number = int(re.search(regex_pattern, ' '.join(
             rating.classes)).group(1))
         return round(rating_number / 10, 1)
+
+    def _get_author(self, review, author_query):
+        author = HTMLScraper.get_first(review, author_query).content
+        return author.replace('-', '').strip()
 
     async def get_top_best_reviews(self, page_range, limit):
         all_reviews = await self.get_by_pages(page_range)
