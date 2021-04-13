@@ -6,12 +6,16 @@ from app.scrapers.reviews import Reviews
 
 class ReviewsUI:
     async def print_top_reviews(self):
-        reviews = await self.top_reviews
-        formated_data = tabulate(
-            [[r.date, r.rate, r.comment] for r in reviews],
-            headers=['Date', 'Rate', 'Comment']
-        )
-        print(formated_data)
+        try:
+            reviews = await self.top_reviews
+            formated_data = tabulate(
+                [[r.date, r.rate, r.comment] for r in reviews],
+                headers=['Date', 'Rate', 'Comment']
+            )
+            print(formated_data)
+        except Exception as error:
+            msg = f"Couldn't get reviews: \n{error}"
+            print(tabulate({"Error": [msg]}, headers="keys"))
 
     @property
     async def top_reviews(self):

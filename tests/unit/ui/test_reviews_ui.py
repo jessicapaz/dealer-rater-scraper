@@ -1,6 +1,7 @@
 import argparse
 import pytest
 from unittest.mock import patch
+from aiohttp import client_exceptions
 
 from app.ui.reviews import ReviewsUI
 
@@ -32,3 +33,26 @@ async def test_get_top_reviews_with_success(
     actual, err = capfd.readouterr()
 
     assert actual.split() == expected.split()
+
+
+@pytest.mark.asyncio
+@patch('aiohttp.ClientSession.get')
+@patch('argparse.ArgumentParser.parse_args')
+async def test_get_top_reviews_when_request_fail(
+        mock_args, mock_request, capfd
+):
+    mock_request.side_effect = client_exceptions.ClientError('error')
+    mock_args.return_value = argparse.Namespace(
+        dealer='McKaig Chevrolet Buick A Dealer',
+        page_start=1,
+        page_end=1,
+        limit=2
+    )
+
+    expected = "Error\n----------------------\nCouldn't get reviews:\nerror\n"
+
+    await ReviewsUI().print_top_reviews()
+
+    actual, err = capfd.readouterr()
+
+    assert actual == expected
